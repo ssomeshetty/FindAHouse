@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ listing.title }} - Real Estate{% endblock %}
+
+{% block content %}
+    <div class="row my-5">
+        <div class="col-md-6">
+            {% if listing.image %}
+                <img src="{{ listing.image.url }}" class="img-fluid" alt="Listing Image">  <!-- Display the image -->
+            {% else %}
+                <img src="https://via.placeholder.com/600x400" class="img-fluid" alt="Listing Image">
+            {% endif %}
+        </div>
+        <div class="col-md-6">
+            <h2>{{ listing.title }}</h2>
+            <p><strong>Price:</strong> ${{ listing.price }}</p>
+            <p><strong>Bedrooms:</strong> {{ listing.num_bedrooms }}</p>
+            <p><strong>Bathrooms:</strong> {{ listing.num_bathrooms }}</p>
+            <p><strong>Square Footage:</strong> {{ listing.square_footage }} sqft</p>
+            <p><strong>Address:</strong> {{ listing.address }}</p>
+            <a href="{% url 'listing_update' listing.pk %}" class="btn btn-warning">Edit Listing</a>
+        </div>
+    </div>
+{% endblock %}
