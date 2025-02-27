@@ -1,39 +1,78 @@
+<!-- add_listing.html -->
+
 {% extends 'base.html' %}
+{% load widget_tweaks %}
+
 
 {% block title %}Add New Listing - FindAHouse{% endblock %}
 
 {% block content %}
-    <h1 class="my-5 text-center">Add New Listing</h1>
-    <form method="post" enctype="multipart/form-data">  <!-- Add enctype here -->
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="id_title">Title</label>
-            {{ form.title }}
+    <div class="page-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h1 class="display-4 fw-bold">Add New Listing</h1>
+                    <p class="lead">Share your property with potential buyers</p>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="id_price">Price</label>
-            {{ form.price }}
+    </div>
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="card shadow p-4">
+                    <div class="card-body">
+                        <form method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            
+                            <div class="mb-4">
+                                <label for="id_title" class="form-label">Property Title</label>
+                                {{ form.title|add_class:"form-control" }}
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="id_price" class="form-label">Price ($)</label>
+                                {{ form.price|add_class:"form-control" }}
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-4 mb-4">
+                                    <label for="id_num_bedrooms" class="form-label">Bedrooms</label>
+                                    {{ form.num_bedrooms|add_class:"form-control" }}
+                                </div>
+                                
+                                <div class="col-md-4 mb-4">
+                                    <label for="id_num_bathrooms" class="form-label">Bathrooms</label>
+                                    {{ form.num_bathrooms|add_class:"form-control" }}
+                                </div>
+                                
+                                <div class="col-md-4 mb-4">
+                                    <label for="id_square_footage" class="form-label">Square Footage</label>
+                                    {{ form.square_footage|add_class:"form-control" }}
+                                </div>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="id_address" class="form-label">Address</label>
+                                {{ form.address|add_class:"form-control" }}
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="id_image" class="form-label">Upload Property Image</label>
+                                <div class="input-group">
+                                    {{ form.image|add_class:"form-control" }}
+                                </div>
+                                <small class="text-muted">Upload a high-quality image of your property (max 5MB)</small>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-success btn-lg">Submit Listing</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="id_num_bedrooms">Number of Bedrooms</label>
-            {{ form.num_bedrooms }}
-        </div>
-        <div class="form-group">
-            <label for="id_num_bathrooms">Number of Bathrooms</label>
-            {{ form.num_bathrooms }}
-        </div>
-        <div class="form-group">
-            <label for="id_square_footage">Square Footage</label>
-            {{ form.square_footage }}
-        </div>
-        <div class="form-group">
-            <label for="id_address">Address</label>
-            {{ form.address }}
-        </div>
-        <div class="form-group">
-            <label for="id_image">Image</label>
-            {{ form.image }}
-        </div>
-        <button type="submit" class="btn btn-success">Submit Listing</button>
-    </form>
+    </div>
 {% endblock %}

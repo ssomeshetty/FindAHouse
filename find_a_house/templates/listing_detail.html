@@ -1,24 +1,90 @@
+<!-- listing_detail.html -->
 {% extends 'base.html' %}
+{% load humanize %}
 
 {% block title %}{{ listing.title }} - FindAHouse{% endblock %}
 
 {% block content %}
-    <div class="row my-5">
-        <div class="col-md-6">
-            {% if listing.image %}
-                <img src="{{ listing.image.url }}" class="img-fluid" alt="Listing Image">  <!-- Display the image -->
-            {% else %}
-                <img src="https://via.placeholder.com/600x400" class="img-fluid" alt="Listing Image">
-            {% endif %}
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-md-8">
+                {% if listing.image %}
+                    <img src="{{ listing.image.url }}" class="img-fluid listing-img" alt="{{ listing.title }}">
+                {% else %}
+                    <img src="https://via.placeholder.com/800x500" class="img-fluid listing-img" alt="Listing Image">
+                {% endif %}
+            </div>
+            
+            <div class="col-md-4">
+                <div class="detail-section h-100">
+                    <div class="price-tag mb-3">${{ listing.price|floatformat:0|intcomma }}</div>
+                    <h2 class="fw-bold mb-4">{{ listing.title }}</h2>
+                    
+                    <div class="mb-4">
+                        <p class="mb-1"><i class="fas fa-map-marker-alt text-secondary me-2"></i> {{ listing.address }}</p>
+                    </div>
+                    
+                    <hr>
+                    
+                    <div class="row text-center mb-4">
+                        <div class="col-4">
+                            <div class="p-3 rounded bg-light">
+                                <i class="fas fa-bed text-secondary mb-2 h4"></i>
+                                <p class="mb-0 fw-bold">{{ listing.num_bedrooms }}</p>
+                                <small>Bedrooms</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded bg-light">
+                                <i class="fas fa-bath text-secondary mb-2 h4"></i>
+                                <p class="mb-0 fw-bold">{{ listing.num_bathrooms }}</p>
+                                <small>Bathrooms</small>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-3 rounded bg-light">
+                                <i class="fas fa-ruler-combined text-secondary mb-2 h4"></i>
+                                <p class="mb-0 fw-bold">{{ listing.square_footage }}</p>
+                                <small>Sq Ft</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <hr>
+                    
+                    <a href="{% url 'listing_update' listing.pk %}" class="btn btn-warning w-100 mb-3">
+                        <i class="fas fa-edit me-2"></i> Edit Listing
+                    </a>
+                    
+                    <button class="btn btn-primary w-100">
+                        <i class="fas fa-phone me-2"></i> Contact Agent
+                    </button>
+                </div>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h2>{{ listing.title }}</h2>
-            <p><strong>Price:</strong> ${{ listing.price }}</p>
-            <p><strong>Bedrooms:</strong> {{ listing.num_bedrooms }}</p>
-            <p><strong>Bathrooms:</strong> {{ listing.num_bathrooms }}</p>
-            <p><strong>Square Footage:</strong> {{ listing.square_footage }} sqft</p>
-            <p><strong>Address:</strong> {{ listing.address }}</p>
-            <a href="{% url 'listing_update' listing.pk %}" class="btn btn-warning">Edit Listing</a>
+        
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="detail-section">
+                    <h3 class="fw-bold mb-4">Property Details</h3>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Property ID: #{{ listing.pk }}</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Property Type: House</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Property Status: For Sale</li>
+                            </ul>
+                        </div>
+                        <div class="col-md-6">
+                            <ul class="list-unstyled">
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Bedrooms: {{ listing.num_bedrooms }}</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Bathrooms: {{ listing.num_bathrooms }}</li>
+                                <li class="mb-3"><i class="fas fa-check-circle text-success me-2"></i> Area: {{ listing.square_footage }} sqft</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}
